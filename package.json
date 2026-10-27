@@ -1,0 +1,25 @@
+{
+  "name": "rocket-science-cats-in-space",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test:physics": "tsx tools/verify-mission.ts",
+    "test:ui": "node tests/e2e.cjs",
+    "test": "npm run test:physics && npm run test:ui"
+  },
+  "devDependencies": {
+    "playwright": "^1.64.1",
+    "tsx": "^4.23.15",
+    "typescript": "~6.0.3",
+    "vite": "^8.3.4"
+  },
+  "dependencies": {
+    "@types/three": "^0.186.0",
+    "three": "^0.186.1"
+  },
+  "description": "Rocket Science: Cats in Space — a cel-shaded KSP-like orbital sandbox with cats."
+}

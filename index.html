@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#FFF6E5" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="description" content="Rocket Science: Cats in Space — build a rocket, reach orbit, land on the Moon, and bring the crew home. A cozy cel-shaded space program." />
+    <title>Rocket Science: Cats in Space</title>
+  </head>
+  <body>
+    <div id="game">
+      <canvas id="view"></canvas>
+      <div id="ui">
+        <div id="vignette"></div>
+
+        <section id="screen-menu" class="screen menu-screen">
+          <div class="menu-glow"></div>
+          <header class="menu-brand">
+            <div class="brand-paw" aria-hidden="true">
+              <svg viewBox="0 0 64 64"><ellipse cx="32" cy="42" rx="15" ry="12"/><ellipse cx="14" cy="28" rx="7.5" ry="9" transform="rotate(-25 14 28)"/><ellipse cx="25" cy="20" rx="7" ry="9" transform="rotate(-10 25 20)"/><ellipse cx="39" cy="20" rx="7" ry="9" transform="rotate(10 39 20)"/><ellipse cx="50" cy="28" rx="7.5" ry="9" transform="rotate(25 50 28)"/></svg>
+            </div>
+            <span>CAT SPACE AGENCY</span>
+            <span class="brand-dot"></span>
+            <span>EST. 2026</span>
+          </header>
+
+          <div class="menu-left">
+            <p class="eyebrow">A cozy orbital adventure</p>
+            <h1>Rocket<br/><span>Science</span></h1>
+            <div class="subtitle"><span class="sub-paw" aria-hidden="true"><svg viewBox="0 0 48 48"><ellipse cx="24" cy="31" rx="12" ry="9"/><ellipse cx="10" cy="20" rx="5" ry="6.5" transform="rotate(-25 10 20)"/><ellipse cx="19" cy="14" rx="5" ry="6.5" transform="rotate(-10 19 14)"/><ellipse cx="29" cy="14" rx="5" ry="6.5" transform="rotate(10 29 14)"/><ellipse cx="38" cy="20" rx="5" ry="6.5" transform="rotate(25 38 20)"/></svg></span> Cats in Space</div>
+            <p class="tagline">Build a rocket. Fly it to the Moon. Bring the cats home.<br/>Real orbital physics, questionable feline decisions.</p>
+            <div class="menu-actions">
+              <button id="btn-continue" class="btn btn-primary btn-xl">
+                <span class="btn-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+                <span><strong>Start Mission</strong><small>New space program</small></span>
+              </button>
+              <button id="btn-menu-lab" class="btn btn-ghost btn-lg">
+                <span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 0 5.4-5.4l-2.8 2.8-2.2-2.2z"/></svg></span> Rocket Lab
+              </button>
+              <button id="btn-menu-help" class="btn btn-ghost btn-lg">
+                <span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.8 2.1c-.8.5-1.3 1-1.3 2.1"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg></span> How to Play
+              </button>
+            </div>
+            <div class="menu-progress">
+              <div class="progress-paw" id="menu-paws"></div>
+              <div>
+                <strong id="menu-progress-title">Space program not started</strong>
+                <span id="menu-progress-sub">A full Terra → Luna → Terra mission awaits.</span>
+              </div>
+            </div>
+          </div>
+
+          <aside class="mission-card panel">
+            <div class="mission-card-top">
+              <span class="tag coral">MISSION 01</span>
+              <span class="mission-status" id="menu-mission-status">READY</span>
+            </div>
+            <h3>Lunar Pawprint</h3>
+            <p>Launch from Mewport, reach orbit, land on <strong>Luna</strong>, plant a flag, and return to Terra.</p>
+            <div class="mission-steps">
+              <div class="mstep"><span class="mnum">1</span><span>Build & launch</span></div>
+              <div class="mstep"><span class="mnum">2</span><span>Reach orbit</span></div>
+              <div class="mstep"><span class="mnum">3</span><span>Land on Luna</span></div>
+              <div class="mstep"><span class="mnum">4</span><span>Return home</span></div>
+            </div>
+            <div class="mission-meta">
+              <div><span class="muted">Targets</span><strong>Terra · Luna · Mochi</strong></div>
+              <div><span class="muted">Δv needed</span><strong>≈ 6.5 km/s</strong></div>
+            </div>
+            <button id="btn-menu-start" class="btn btn-coral btn-block">Open the Rocket Lab →</button>
+          </aside>
+
+          <div class="menu-cat-note" id="menu-cat-note">
+            <div class="speech">“The sky is not the limit. It's just the first checkpoint.”</div>
+            <span class="cat-sign">— Commander Mochi</span>
+          </div>
+
+          <footer class="menu-footer">
+            <span>Rocket Science: Cats in Space</span>
+            <span>·</span>
+            <span>Cel-shaded orbital sandbox</span>
+            <span class="spacer"></span>
+            <button class="link-btn" id="btn-menu-settings">Settings</button>
+            <button class="link-btn" id="btn-menu-credits">Credits</button>
+          </footer>
+        </section>
+
+        <section id="screen-vab" class="screen vab-screen hidden">
+          <div class="vab-topbar">
+            <button id="btn-vab-back" class="btn btn-ghost btn-sm">← Menu</button>
+            <div class="vab-title">
+              <span class="tag teal">ROCKET LAB</span>
+              <input id="design-name" class="design-name" value="Moon Cat Mk II" maxlength="28" spellcheck="false" aria-label="Rocket name" />
+            </div>
+            <div class="vab-top-actions">
+              <button id="btn-undo" class="btn btn-ghost btn-sm" title="Undo">↶</button>
+              <button id="btn-vab-presets" class="btn btn-ghost btn-sm">Presets</button>
+              <button id="btn-vab-save" class="btn btn-ghost btn-sm">Save</button>
+              <button id="btn-vab-launch" class="btn btn-coral btn-md">Launch <span class="launch-arrow">↑</span></button>
+            </div>
+          </div>
+
+          <aside class="palette panel">
+            <div class="palette-head">
+              <h3>Parts</h3>
+              <span id="palette-count" class="muted small">15 parts</span>
+            </div>
+            <div id="part-tabs" class="part-tabs"></div>
+            <div id="part-list" class="part-list"></div>
+            <div class="palette-foot">
+              <div class="cat-tip">
+                <div class="tip-cat" id="vab-cat-avatar">😺</div>
+                <div>
+                  <strong id="vab-tip-title">Purrcy's advice</strong>
+                  <span id="vab-tip-text">Click a part to add it. Drag the ship to orbit the camera.</span>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          <aside class="vab-stats panel">
+            <div class="stats-head">
+              <h3>Flight Readout</h3>
+              <span id="vab-validity" class="tag green">FLIGHT READY</span>
+            </div>
+            <div class="big-stats">
+              <div class="big-stat">
+                <span class="bs-label">Δv remaining</span>
+                <strong id="stat-dv">0</strong><span class="bs-unit">m/s</span>
+              </div>
+              <div class="stat-pair">
+                <div><span class="muted">Liftoff TWR</span><strong id="stat-twr">0.00</strong></div>
+                <div><span class="muted">Mass</span><strong id="stat-mass">0 t</strong></div>
+              </div>
+            </div>
+            <div class="bar-row"><span>Stage 1 Δv</span><div class="bar"><i id="bar-s1"></i></div><b id="bar-s1v">0</b></div>
+            <div class="bar-row"><span>Stage 2 Δv</span><div class="bar"><i id="bar-s2"></i></div><b id="bar-s2v">0</b></div>
+            <div class="bar-row"><span>Stage 3 Δv</span><div class="bar"><i id="bar-s3"></i></div><b id="bar-s3v">0</b></div>
+            <div class="vab-meta">
+              <div><span class="muted">Height</span><strong id="stat-height">0 m</strong></div>
+              <div><span class="muted">Crew</span><strong id="stat-crew">1 cat</strong></div>
+              <div><span class="muted">Cost</span><strong id="stat-cost">0</strong></div>
+            </div>
+            <div id="vab-warnings" class="vab-warnings"></div>
+            <div class="stage-mini" id="stage-mini"></div>
+            <div class="vab-actions">
+              <button id="btn-vab-launch2" class="btn btn-primary btn-block">Launch to Pad</button>
+              <div class="small muted center">Drag to orbit · Scroll to zoom</div>
+            </div>
+          </aside>
+
+          <div class="vab-stack panel">
+            <div class="stack-head">
+              <h3>Stack</h3>
+              <span class="muted small">Top → bottom · stages split at decouplers</span>
+              <div class="stack-actions">
+                <button id="btn-stack-up" class="btn btn-ghost btn-xs" title="Move selected up">↑</button>
+                <button id="btn-stack-down" class="btn btn-ghost btn-xs" title="Move selected down">↓</button>
+                <button id="btn-stack-remove" class="btn btn-ghost btn-xs danger" title="Remove selected">✕</button>
+              </div>
+            </div>
+            <div id="stack-parts" class="stack-parts"></div>
+          </div>
+
+          <div class="vab-center-hint" id="vab-center-hint">
+            <span class="dot"></span> Select a part, then click a part in the palette
+          </div>
+
+          <div class="vab-cat" id="vab-cat">
+            <div class="vab-cat-bubble">“I labeled every tank. This one says <em>MEOW</em>.”</div>
+          </div>
+        </section>
+
+        <section id="screen-flight" class="screen flight-screen hidden">
+          <header class="flight-top">
+            <div class="flight-mission">
+              <span class="tag coral" id="flight-tag">LUNAR PAWPRINT</span>
+              <div class="flight-body"><span id="flight-body">TERRA</span><span id="flight-soi" class="muted">SOI</span></div>
+            </div>
+            <div class="flight-clock">
+              <span class="muted">MISSION TIME</span>
+              <strong id="flight-met">00:00:00</strong>
+              <span id="flight-warp" class="warp-badge">1×</span>
+            </div>
+            <div class="flight-top-actions">
+              <button id="btn-flight-map" class="btn btn-ghost btn-sm">Map <kbd>M</kbd></button>
+              <button id="btn-flight-help" class="btn btn-ghost btn-sm">Help</button>
+              <button id="btn-flight-pause" class="btn btn-ghost btn-sm">Pause</button>
+            </div>
+          </header>
+
+          <div class="flight-left">
+            <div class="navball-card panel">
+              <div class="navball-wrap">
+                <canvas id="navball" width="380" height="380"></canvas>
+                <div class="navball-label">NAVBALL</div>
+              </div>
+              <div class="navball-meta">
+                <div><span>HEADING</span><strong id="nb-heading">000°</strong></div>
+                <div><span>PITCH</span><strong id="nb-pitch">0°</strong></div>
+                <div><span>ROLL</span><strong id="nb-roll">0°</strong></div>
+              </div>
+              <div class="sas-row">
+                <button class="btn-icon-toggle" id="btn-sas" title="Toggle SAS (T)">SAS</button>
+                <button class="btn-icon-toggle" id="btn-rcs" title="Toggle RCS (R)">RCS</button>
+                <button class="btn-icon-toggle" id="btn-gear" title="Landing gear (G)">GEAR</button>
+                <button class="btn-icon-toggle" id="btn-chute" title="Parachute (P)">CHUTE</button>
+              </div>
+              <div class="sas-modes" id="sas-modes">
+                <button data-mode="stability" title="Stability assist">●</button>
+                <button data-mode="prograde" title="Prograde">↗</button>
+                <button data-mode="retrograde" title="Retrograde">↙</button>
+                <button data-mode="radial+" title="Radial out">↑</button>
+                <button data-mode="radial-" title="Radial in">↓</button>
+                <button data-mode="normal+" title="Normal +">✦</button>
+                <button data-mode="normal-" title="Normal −">✧</button>
+                <button data-mode="target" title="Target">◎</button>
+                <button data-mode="up" title="Surface up">⌂</button>
+              </div>
+            </div>
+            <div class="cat-comm panel" id="cat-comm">
+              <div class="comm-portrait">🐱</div>
+              <div><strong id="comm-name">Commander Mochi</strong><span id="comm-text">Systems green. Awaiting your command.</span></div>
+            </div>
+          </div>
+
+          <div class="flight-right">
+            <div class="orbit-card panel">
+              <div class="orbit-head"><h3>Orbital Data</h3><span class="tag teal" id="orbit-body">TERRA</span></div>
+              <div class="orbit-grid">
+                <div><span>Apoapsis</span><strong id="t-ap">—</strong></div>
+                <div><span>Periapsis</span><strong id="t-pe">—</strong></div>
+                <div><span>Altitude</span><strong id="t-alt">0 m</strong></div>
+                <div><span>Speed</span><strong id="t-speed">0 m/s</strong></div>
+                <div><span>Inclination</span><strong id="t-inc">0.0°</strong></div>
+                <div><span>Period</span><strong id="t-period">—</strong></div>
+              </div>
+              <div class="target-row">
+                <div><span>TARGET</span><strong id="t-target">Luna</strong><small id="t-dist">—</small></div>
+                <select id="target-select" aria-label="Target body">
+                  <option value="luna">Luna</option>
+                  <option value="mochi">Mochi</option>
+                  <option value="rusty">Rusty</option>
+                  <option value="verdant">Verdant</option>
+                  <option value="terra">Terra</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="resource-card panel">
+              <div class="res-head"><h3>Vessel</h3><span id="res-stage">STAGE 1</span></div>
+              <div class="res-row"><span>Fuel</span><div class="bar"><i id="res-fuel"></i></div><b id="res-fuel-num">0%</b></div>
+              <div class="res-row"><span>Monoprop</span><div class="bar teal"><i id="res-mono"></i></div><b id="res-mono-num">0</b></div>
+              <div class="res-stats">
+                <div><span>TWR</span><strong id="res-twr">0.00</strong></div>
+                <div><span>Mass</span><strong id="res-mass">0 t</strong></div>
+                <div><span>Thrust</span><strong id="res-thrust">0 kN</strong></div>
+              </div>
+              <div class="stage-dots" id="stage-dots"></div>
+            </div>
+
+            <div class="auto-card panel">
+              <div class="auto-head">
+                <h3>Flight Computer</h3>
+                <span id="auto-state" class="tag">IDLE</span>
+              </div>
+              <div class="auto-status">
+                <strong id="auto-label">Manual control</strong>
+                <span id="auto-detail">SAS and RCS are yours, captain.</span>
+              </div>
+              <div class="auto-buttons">
+                <button data-auto="ascent">Launch to Orbit</button>
+                <button data-auto="transfer">Fly to Target</button>
+                <button data-auto="land">Land</button>
+                <button data-auto="return">Return Home</button>
+                <button data-auto="mission" class="wide accent">Full Mission (Auto)</button>
+                <button data-auto="off" class="wide subtle">Abort Autopilot</button>
+              </div>
+              <div class="auto-warp"><label><input type="checkbox" id="auto-warp" checked/> Auto-warp during coasts</label></div>
+            </div>
+          </div>
+
+          <div class="flight-bottom">
+            <div class="throttle-card panel">
+              <div class="throttle-label"><span>THROTTLE</span><strong id="throttle-num">0%</strong></div>
+              <div class="throttle-track" id="throttle-track"><i id="throttle-fill"></i><div class="throttle-knob" id="throttle-knob"></div></div>
+              <div class="throttle-buttons">
+                <button id="btn-throttle-zero" class="btn btn-ghost btn-xs">Cut</button>
+                <button id="btn-throttle-full" class="btn btn-ghost btn-xs">Full</button>
+              </div>
+            </div>
+            <div class="stage-card panel">
+              <button id="btn-stage" class="stage-btn"><span>STAGE</span><strong id="stage-num">1</strong><small id="stage-hint">Space</small></button>
+              <div class="stage-readout">
+                <div><span>Δv in stage</span><strong id="stage-dv">—</strong></div>
+                <div><span>Stage fuel</span><strong id="stage-fuel">—</strong></div>
+                <div class="stage-pips" id="stage-pips"></div>
+              </div>
+            </div>
+            <div class="warp-card panel">
+              <div class="warp-head"><span>WARP</span><strong id="warp-factor">1×</strong></div>
+              <div class="warp-buttons">
+                <button data-warp="0">◀◀</button>
+                <button data-warp="-1">◀</button>
+                <button data-warp="1">▶</button>
+                <button data-warp="2">▶▶</button>
+              </div>
+              <div class="warp-list" id="warp-list"></div>
+            </div>
+          </div>
+
+          <div class="flight-center-hint" id="flight-center-hint">
+            <span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> rotate</span>
+            <span><kbd>Q</kbd><kbd>E</kbd> roll</span>
+            <span><kbd>Shift</kbd>/<kbd>Ctrl</kbd> throttle</span>
+            <span><kbd>Space</kbd> stage</span>
+          </div>
+
+          <div class="toasts" id="toasts"></div>
+          <div class="landed-banner hidden" id="landed-banner">
+            <div class="lb-flag" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#FF806A"><path d="M5 2h2v20H5z"/><path d="M7 3h12l-3 4 3 4H7z"/></svg></div>
+            <div><strong id="lb-title">Touchdown</strong><span id="lb-detail"></span></div>
+            <button id="btn-plant-flag" class="btn btn-ghost btn-sm">Plant flag</button>
+            <button id="btn-recover" class="btn btn-coral btn-sm hidden">Recover crew</button>
+          </div>
+        </section>
+
+        <section id="screen-map" class="screen map-screen hidden">
+          <canvas id="map-canvas"></canvas>
+          <header class="map-top">
+            <button id="btn-map-close" class="btn btn-ghost btn-sm">← Back to flight</button>
+            <div class="map-title"><span class="tag teal">FLIGHT MAP</span><h3>Orbital Mechanics</h3></div>
+            <div class="map-top-actions">
+              <button id="btn-map-local" class="btn btn-ghost btn-sm active">Local</button>
+              <button id="btn-map-system" class="btn btn-ghost btn-sm">System</button>
+            </div>
+          </header>
+          <aside class="map-side panel">
+            <h3>Targets</h3>
+            <div id="map-targets" class="map-targets"></div>
+            <div class="map-legend">
+              <span><i class="dot teal"></i> Ship orbit</span>
+              <span><i class="dot coral"></i> Target</span>
+              <span><i class="dot lav"></i> Moon / planet</span>
+              <span><i class="line"></i> SOI</span>
+            </div>
+            <div class="map-readout">
+              <div><span>Apoapsis</span><strong id="map-ap">—</strong></div>
+              <div><span>Periapsis</span><strong id="map-pe">—</strong></div>
+              <div><span>Period</span><strong id="map-period">—</strong></div>
+              <div><span>Δv to target</span><strong id="map-dv">—</strong></div>
+            </div>
+            <button id="btn-map-warp" class="btn btn-primary btn-block">Warp to transfer window</button>
+            <p class="small muted">Drag to pan · Scroll to zoom · Click a body to target it.</p>
+          </aside>
+          <div class="map-footer">
+            <span>Top-down projection · not to scale</span>
+            <span id="map-zoom-label">1×</span>
+          </div>
+        </section>
+
+        <div id="modal" class="modal-backdrop hidden">
+          <div class="modal panel">
+            <div class="modal-head"><h2 id="modal-title">Title</h2><button id="btn-modal-close" class="close-btn">✕</button></div>
+            <div id="modal-body" class="modal-body"></div>
+            <div id="modal-actions" class="modal-actions"></div>
+          </div>
+        </div>
+
+        <div id="pause" class="overlay hidden">
+          <div class="pause-card panel">
+            <span class="tag coral">PAUSED</span>
+            <h2>Tea break?</h2>
+            <p>The cats are napping. The orbits are stable. Probably.</p>
+            <button id="btn-resume" class="btn btn-primary btn-block">Resume Flight</button>
+            <button id="btn-pause-map" class="btn btn-ghost btn-block">Open Flight Map</button>
+            <button id="btn-pause-settings" class="btn btn-ghost btn-block">Settings</button>
+            <button id="btn-pause-vab" class="btn btn-ghost btn-block">Return to Rocket Lab</button>
+            <button id="btn-pause-menu" class="btn btn-ghost btn-block">Main Menu</button>
+          </div>
+        </div>
+
+        <div id="loading" class="loading hidden">
+          <div class="loading-cat">🐱</div>
+          <div class="loading-bar"><i></i></div>
+          <span id="loading-text">Packing the snacks…</span>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
