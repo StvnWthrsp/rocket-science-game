@@ -29,14 +29,14 @@ export class VabScene {
     const crates = new Group();
     const crateMat = createToonMaterial({ color: 0xd8b98e, shade: 0x9c7c60, rim: 0.2 });
     const crateMat2 = createToonMaterial({ color: 0xffc27a, shade: 0xb07b45, rim: 0.2 });
-    const c1 = new Mesh(new BoxGeometry(5.2, 2.6, 4.4), crateMat);
-    c1.position.set(7.5, 1.3, 7.5);
+    const c1 = new Mesh(new BoxGeometry(5.2, 4.0, 4.4), crateMat);
+    c1.position.set(7.5, 2.0, 7.5);
     crates.add(c1);
     const c2 = new Mesh(new BoxGeometry(3.6, 2.0, 3.2), crateMat2);
-    c2.position.set(7.2, 3.6, 7.2);
+    c2.position.set(7.2, 5.0, 7.2);
     crates.add(c2);
     const c3 = new Mesh(new BoxGeometry(2.2, 1.0, 2.0), crateMat);
-    c3.position.set(7.0, 5.1, 7.0);
+    c3.position.set(7.0, 6.6, 7.0);
     crates.add(c3);
     this.scene.add(crates);
     const stand = new Group();
@@ -55,7 +55,7 @@ export class VabScene {
     this.rocket.rebuild(design, layout);
     this.rocket.group.position.y = layout.comHeight;
     this.rocket.group.quaternion.identity();
-    this.cat.group.position.set(7.0, 5.6, 7.0);
+    this.cat.group.position.set(7.0, 7.25, 7.0);
     this.cat.group.scale.setScalar(1.65);
     this.cat.group.rotation.y = -0.5;
     this.cat.update(0.016, this.clock);

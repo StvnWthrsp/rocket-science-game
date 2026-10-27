@@ -2,6 +2,8 @@
 
 A fully playable, cel-shaded orbital sandbox in the spirit of Kerbal Space Program — built with Three.js, TypeScript and Vite, crewed entirely by cats.
 
+**Play it online:** https://stvnwthrsp.github.io/rocket-science-game/
+
 Build a rocket in the Rocket Lab, fly it to orbit around Terra, transfer to **Luna**, land, plant a flag, launch again, and bring the crew home. The same physics supports a second moon (**Mochi**) and two interplanetary destinations (**Rusty** and **Verdant**).
 
 ![Menu](docs/screenshots/menu.png)
