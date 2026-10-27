@@ -260,7 +260,7 @@ export function installAppExtras(GameApp: Ctor): void {
       const controls = this.autopilot.active ? this.autopilot.update(ship, step) : this.makeControls(step);
       const t = ship.telemetry();
       let warp = 1;
-      if (this.autopilot.active && this.autoWarp && this.autopilot.warpRequest > 1 && controls.throttle < 0.001 && !ship.landed) warp = Math.min(1000, this.autopilot.warpRequest);
+      if (this.autopilot.active && this.autoWarp && this.autopilot.warpRequest > 1 && controls.throttle < 0.001 && !ship.landed) warp = Math.min(10000, this.autopilot.warpRequest);
       const safe = !ship.landed && t.periapsis > (ship.currentBody.atmosphere ? ship.currentBody.atmosphere.height + 5000 : 5000) && (!ship.currentBody.atmosphere || t.altitude > ship.currentBody.atmosphere.height + 3000);
       if (warp > 4 && safe) {
         ship.railsStep(warp * 0.05);
