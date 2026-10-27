@@ -21,5 +21,13 @@
     "@types/three": "^0.186.0",
     "three": "^0.186.1"
   },
-  "description": "Rocket Science: Cats in Space — a cel-shaded KSP-like orbital sandbox with cats."
+  "description": "Rocket Science: Cats in Space — a cel-shaded KSP-like orbital sandbox with cats.",
+  "homepage": "https://stvnwthrsp.github.io/rocket-science-game/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StvnWthrsp/rocket-science-game.git"
+  },
+  "bugs": {
+    "url": "https://github.com/StvnWthrsp/rocket-science-game/issues"
+  }
 }
